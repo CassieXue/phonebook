@@ -27,8 +27,6 @@ typedef struct Student {
 //    struct Student *next;      // 结构体指针
 }Student;
 
-Student *head = NULL;
-
 // 登记学生信息
 Student appendStudent() {
     Student s;
@@ -91,6 +89,21 @@ void deleteStudent(int &num, Student *stus) {
 
 void printStudentInfo(int i, Student stus[]) {
     std::cout << "学号:" << stus[i].name << " " << "姓名:" << stus[i].id;
+}
+
+void editName(Student *stu, int &i){
+    string newName;
+    cout << "输入新名字：";
+    cin >> newName;
+    stu[i].name = newName;
+    cout << "修改完毕，新的名字是" << stu[i].name;
+}
+void editId(Student *stu, int &i){
+    string newId;
+    cout << "输入新id：";
+    cin >> newId;
+    stu[i].id = newId;
+    cout << "修改完毕，新的id是" << stu[i].id;
 }
 
 void writeToText(int &num, Student *s) {
@@ -177,6 +190,26 @@ int main()
             } while (y == 'y');
             break;
         case 4:
+            int a;    // 标识要修改的信息项
+            do{
+                int index = searchStudent(num, students);
+                if(index>=0){
+                    cout << "*****请输入要修改的信息项,‘:’提示输入*****" <<endl;
+                    cout << "1.姓名 2.学号 3.年龄 4.性别 5.籍贯 6.通信地址 7.电子邮箱 8.手机号 9.qq号 10.寝室号" <<endl;
+                    cout << ":";
+                    cin >> a;
+                    switch(a){
+                        case 1: 
+                            editName(students, index);
+                            break;
+                        case 2: 
+                            editId(students, index); 
+                            break;
+                    }
+                }
+                cout << "是否继续修改(y/n): ";
+                cin >> y;
+            }while(y=='y');
             break;
         case 5:
             writeToText(num, students);
